@@ -1,0 +1,104 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block page_content %}
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
+        <!-- Width Control -->
+
+        <div class="card shadow-lg border-0 rounded-4">
+          <!-- Header -->
+          <div class="card-header back  text-white rounded-top-4 py-3">
+            <h4 class="mb-0"><i class="bi bi-journal-plus me-2"></i>Manual Borrow</h4>
+          </div>
+
+          <!-- Body -->
+          <div class="card-body p-4">
+            <form method="post">
+              {% csrf_token %}
+
+              <div class="row g-3">
+                <!-- Student -->
+                <div class="col-12">
+                  <label class="form-label fw-semibold">Student</label>
+                  {{ form.student }}
+                </div>
+
+                <!-- Category -->
+                <div class="col-12">
+                  <label class="form-label fw-semibold">Category</label>
+                  {{ form.category }}
+                </div>
+
+                <!-- Book -->
+                <div class="col-12">
+                  <label class="form-label fw-semibold">Book</label>
+                  {{ form.book }}
+                </div>
+
+                <!-- Borrow Date -->
+                {% comment %} <div class="col-12">
+                  <label class="form-label fw-semibold">Borrow Date</label>
+                  {{ form.borrow_date }}
+                </div> {% endcomment %}
+
+                <!-- Due Date -->
+                <div class="col-12">
+                  <label class="form-label fw-semibold">Due Date</label>
+                  {{ form.due_date }}
+                </div>
+              </div>
+
+              <!-- Buttons -->
+              <div class="mt-4 d-flex justify-content-between">
+                <a href="{% url 'borrow_list' %}" class="btn btn-outline-secondary rounded-pill px-4"><i class="bi bi-arrow-left me-2"></i> Back</a>
+
+                <button class="btn btn-outline-primary px-4 rounded-pill shadow-sm"><i class="bi bi-check-circle me-2"></i> Borrow Book</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    .back {
+      background: linear-gradient(90deg, #0d6efd, #6f42c1);
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const categoryField = document.getElementById('id_category')
+      const bookField = document.getElementById('id_book')
+    
+      if (!categoryField || !bookField) {
+        console.log('Fields not found')
+        return
+      }
+    
+      categoryField.addEventListener('change', function () {
+        const categoryId = this.value
+    
+        if (!categoryId) {
+          bookField.innerHTML = '<option value="">Select Book</option>'
+          return
+        }
+    
+        fetch("{% url 'get_books' %}?category_id=" + categoryId)
+          .then((response) => response.json())
+          .then((data) => {
+            bookField.innerHTML = '<option value="">Select Book</option>'
+    
+            data.forEach((book) => {
+              const option = document.createElement('option')
+              option.value = book.id
+              option.textContent = book.title
+    
+              bookField.appendChild(option)
+            })
+          })
+      })
+    })
+  </script>
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block page_content %}
+  <div class="container-fluid mt-4">
+    <div class="card border-0 shadow-lg rounded-4">
+      <!-- Header -->
+      <div class="card-header back text-white d-flex flex-column flex-md-row justify-content-between align-items-md-center rounded-top-4 gap-2">
+        <h5 class="mb-0 fw-semibold">
+          <i class="bi bi-journal-bookmark-fill me-2"></i>
+          Borrow Book List
+        </h5>
+      </div>
+
+      <!-- Table -->
+      <div class="card-body p-2 p-md-4">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle text-center table-sm">
+            <thead class="table-primary">
+              <tr class="text-secondary small">
+                <th>ID</th>
+                <th>Student</th>
+                <th>Book</th>
+
+                <th>Status</th>
+
+                <th class="d-none d-md-table-cell">Borrow Date</th>
+
+                <th>Due Date</th>
+
+                <th class="d-none d-md-table-cell">Return Date</th>
+
+                <th class="d-none d-lg-table-cell">Fine</th>
+
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for borrow in borrows %}
+                <tr class="border-bottom">
+                  <td class="fw-semibold">{{ borrow.id }}</td>
+
+                  <td>
+                    <span class="fw-semibold">{{ borrow.student.username }}</span>
+                  </td>
+
+                  <td class="text-dark fw-medium">{{ borrow.book.title }}</td>
+
+                  <!-- Status -->
+                  <td>
+                    {% if borrow.status == 'PENDING' %}
+                      <span class="badge rounded-pill bg-warning text-dark px-2 py-1"><i class="bi bi-hourglass-split"></i>PENDING</span>
+                    {% elif borrow.status == 'APPROVED' %}
+                      <span class="badge rounded-pill bg-success px-2 py-1"><i class="bi bi-check-circle"></i>APPROVED</span>
+                    {% elif borrow.status == 'REJECTED' %}
+                      <span class="badge rounded-pill bg-danger px-2 py-1"><i class="bi bi-x-circle"></i>REJECTED</span>
+                    {% elif borrow.status == 'RETURNED' %}
+                      <span class="badge rounded-pill bg-info text-dark px-2 py-1"><i class="bi bi-arrow-return-left">RETURNED</i></span>
+                    {% endif %}
+                  </td>
+
+                  <td class="d-none d-md-table-cell">{{ borrow.borrow_date }}</td>
+
+                  <!-- Due Date -->
+                  <td>
+                    {% if request.user.role == 'ADMIN' or request.user.role == 'LIBRARIAN' %}
+                      <input type="date" name="due_date_{{ borrow.id }}" value="{{ borrow.due_date|date:'Y-m-d' }}" class="form-control form-control-sm" />
+                    {% else %}
+                      <span class="text-muted">{{ borrow.due_date|default:'-' }}</span>
+                    {% endif %}
+                  </td>
+
+                  <!-- Return Date -->
+                  <td class="d-none d-md-table-cell">
+                    {% if request.user.role == 'ADMIN' or request.user.role == 'LIBRARIAN' %}
+                      <input type="date" name="return_date_{{ borrow.id }}" value="{{ borrow.return_date|date:'Y-m-d' }}" class="form-control form-control-sm" />
+                    {% else %}
+                      <span class="text-muted">{{ borrow.return_date|default:'-' }}</span>
+                    {% endif %}
+                  </td>
+
+                  <!-- Fine -->
+                  <td class="d-none d-lg-table-cell">
+                    {% if borrow.fine_amount > 0 %}
+                      <span class="badge bg-danger-subtle text-danger fw-semibold">₹{{ borrow.fine_amount }}</span>
+                    {% else %}
+                      <span class="text-success fw-semibold">₹0</span>
+                    {% endif %}
+                  </td>
+
+                  <!-- Actions -->
+                  <td>
+                    {% if request.user.role == 'ADMIN' or request.user.role == 'LIBRARIAN' %}
+                      {% if borrow.status == 'PENDING' %}
+                        <a href="{% url 'approve_borrow' borrow.id %}" class="btn btn-outline-success btn-sm rounded-pill px-2"><i class="bi bi-check-lg"></i>Approve</a>
+
+                        <a href="{% url 'reject_borrow' borrow.id %}" class="btn btn-outline-danger btn-sm rounded-pill px-2"><i class="bi bi-x-lg"></i>Reject</a>
+                      {% endif %}
+
+                      {% if borrow.status == 'APPROVED' %}
+                        <a href="{% url 'return_book' borrow.id %}" class="btn btn-outline-primary btn-sm rounded-pill px-2"><i class="bi bi-arrow-return-left"></i>Return</a>
+                      {% endif %}
+                    {% endif %}
+                  </td>
+                </tr>
+              {% empty %}
+                <tr>
+                  <td colspan="9" class="py-5 text-muted">
+                    <i class="bi bi-inbox fs-3 d-block mb-2"></i>
+                    No borrow records found
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .back {
+      background: linear-gradient(90deg, #0d6efd, #6f42c1);
+    }
+    /* Mobile improvements */
+    
+    @media (max-width: 768px) {
+      .table {
+        font-size: 13px;
+      }
+    
+      .btn {
+        padding: 4px 8px;
+        font-size: 12px;
+      }
+    
+      input[type='date'] {
+        font-size: 12px;
+        padding: 3px;
+      }
+    }
+  </style>
+{% endblock %}

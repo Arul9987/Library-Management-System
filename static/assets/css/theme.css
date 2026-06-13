@@ -1,0 +1,50 @@
+
+/* :root {
+    --bs-primary: #7be7fa;
+    --bs-secondary: #475569;
+    --bs-success: #16a34a;
+    --bs-danger: #dc2626;
+    --bs-warning: #f59e0b;
+    --bs-info: #0ea5e9;
+    --bs-light: #f8fafc;
+    --bs-dark: #1e293b;
+}*/
+
+
+/*Page background*/
+body{
+    background-color:whitesmoke;
+}
+
+/* Primary theme color */
+/* .bg-primary{
+    background-color:#06e8f8 !important;
+}
+
+.btn-primary{
+    background-color:#06e8f8;
+    border-color:#7be7fa;
+    color:white;
+}
+
+.btn-primary:hover{
+    background-color:#06e8f8;
+    border-color:#11f36f;
+    color:blue;
+}
+/* Text primary */
+/*.text-primary{
+    color: #0a0a0a!important;
+} */
+
+/* Navbar
+.navbar{
+    background-color:#4cf7fd !important;
+}
+
+/* Footer */
+/* footer{
+    background-color:#7be7fa;
+    color:#000;
+} */ 
+
