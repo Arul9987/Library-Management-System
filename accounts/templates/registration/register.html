@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-5 col-md-7">
+        <div class="card shadow border-1 rounded-5">
+          <!-- Header -->
+          <div class="card-header back  text-white text-center py-3 rounded-top-5">
+            <h4 class="mb-0 fw-bold">Create Account</h4>
+          </div>
+
+          <!-- Body -->
+          <div class="card-body p-4">
+            <form method="POST" class="needs-validation" novalidate>
+              {% csrf_token %}
+
+              <!-- Username -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Username <span class="text-danger">*</span></label>
+
+                <div class="input-group">
+                  <span class="input-group-text rounded-start-5"><i class="bi bi-person"></i></span>
+
+                  {{ form.username }}
+
+                  <div class="invalid-feedback">{{ form.username.field.widget.attrs.title }}</div>
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+
+                <div class="input-group">
+                  <span class="input-group-text rounded-start-5"><i class="bi bi-envelope"></i></span>
+
+                  {{ form.email }}
+
+                  <div class="invalid-feedback">{{ form.email.field.widget.attrs.title }}</div>
+                </div>
+              </div>
+
+              <!-- Role -->
+              <!--<div class="mb-3">
+                <label class="form-label fw-semibold">Role</label>
+
+                {{ form.role }}
+
+                <div class="invalid-feedback">{{ form.username.field.widget.attrs.title }}</div>
+              </div>-->
+
+              <!-- Contact -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Contact <span class="text-danger">*</span></label>
+
+                <div class="input-group">
+                  <span class="input-group-text rounded-start-5"><i class="bi bi-telephone"></i></span>
+
+                  {{ form.contact }}
+
+                  <div class="invalid-feedback">{{ form.contact.field.widget.attrs.title }}</div>
+                </div>
+              </div>
+
+              <!-- Address -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Address <span class="text-danger">*</span></label>
+
+                {{ form.address }}
+
+                <div class="invalid-feedback">{{ form.address.field.widget.attrs.title }}</div>
+              </div>
+
+              <!-- Password -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Password <span class="text-danger">*</span></label>
+
+                <div class="input-group">
+                  {{ form.password1 }}
+
+                  <button class="btn btn-outline-secondary rounded-end-5" type="button" onclick="togglePassword('id_password1')"><i class="bi bi-eye"></i></button>
+
+                  <div class="invalid-feedback">Password must be at least 8 characters.</div>
+                </div>
+              </div>
+
+              <!-- Confirm Password -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Confirm Password <span class="text-danger">*</span></label>
+
+                <div class="input-group">
+                  {{ form.password2 }}
+
+                  <button class="btn btn-outline-secondary rounded-end-5" type="button" onclick="togglePassword('id_password2')"><i class="bi bi-eye"></i></button>
+
+                  <div class="invalid-feedback">Passwords must match.</div>
+                </div>
+              </div>
+
+              <!-- Submit -->
+              <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-primary btn-lg rounded-5">Register</button>
+              </div>
+            </form>
+
+            <hr />
+
+            <p class="text-center mb-0">
+              Already have an account?
+              <a href="{% url 'login' %}" class="text-primary fw-semibold">Login here</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<style>
+  .back {
+      background: linear-gradient(90deg, #24c1f1, #7c3aed);
+    }
+</style>
+  <!-- Bootstrap Validation Script -->
+  <script>
+    ;(() => {
+      'use strict'
+    
+      const forms = document.querySelectorAll('.needs-validation')
+    
+      Array.from(forms).forEach((form) => {
+        form.addEventListener(
+          'submit',
+          (event) => {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+    
+            form.classList.add('was-validated')
+          },
+          false
+        )
+      })
+    })()
+  </script>
+
+  <!-- Password Toggle -->
+  <script>
+    function togglePassword(fieldId) {
+      var field = document.getElementById(fieldId)
+    
+      if (field.type === 'password') {
+        field.type = 'text'
+      } else {
+        field.type = 'password'
+      }
+    }
+  </script>
+{% endblock %}

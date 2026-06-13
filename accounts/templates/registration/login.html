@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <section class="login">
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6">
+          <div class="card shadow border-0 rounded-5">
+            <!-- Header -->
+            <div class="card-header back text-white text-center py-3 rounded-top-5">
+              <h4 class="mb-0 fw-bold">Login</h4>
+            </div>
+            <!-- Body -->
+            <div class="card-body p-4">
+              <form method="POST" class="needs-validation" novalidate>
+                {% csrf_token %}
+
+                <!-- Username -->
+                <div class="mb-3">
+                  <label class="form-label fw-semibold">Username</label>
+                  <div class="input-group">
+                    <span class="input-group-text rounded-start-5"><i class="bi bi-person"></i></span>
+                    <input type="text" name="username" class="form-control rounded-end-5" placeholder="Enter username" required />
+                    <div class="invalid-feedback">Please enter your username.</div>
+                  </div>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                  <label class="form-label fw-semibold">Password</label>
+                  <div class="input-group">
+                    <span class="input-group-text rounded-start-5"><i class="bi bi-lock"></i></span>
+                    <input type="password" name="password" id="id_password" class="form-control" placeholder="Enter password" minlength="8" required />
+                    <button class="btn btn-outline-secondary rounded-end-5" type="button" onclick="togglePassword()"><i class="bi bi-eye"></i></button>
+                    <div class="invalid-feedback">Password must be at least 8 characters.</div>
+                  </div>
+                </div>
+
+                <!-- Forgot Password Link -->
+                <div class="text-end mt-2">
+                  <a href="{% url 'forgot_password' %}" class="text-decoration-none">Forgot Password?</a>
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-grid mt-3">
+                  <button type="submit" class="btn btn-primary btn-lg rounded-5">Login</button>
+                </div>
+              </form>
+              <hr />
+              <p class="text-center mb-0">
+                Don't have an account?
+                <a href="{% url 'register' %}" class="fw-semibold text-primary">Register here</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- styles -->
+  <style>
+    .back {
+      background: linear-gradient(90deg, #24c1f1, #7c3aed);
+    }
+    .login {
+      min-height: 90vh;
+    }
+  </style>
+
+  <!-- Password Show/Hide -->
+  <script>
+    function togglePassword() {
+      const password = document.getElementById('id_password')
+      password.type = password.type === 'password' ? 'text' : 'password'
+    }
+  </script>
+
+  <!-- Bootstrap Form Validation -->
+  <script>
+    ;(() => {
+      'use strict'
+      const forms = document.querySelectorAll('.needs-validation')
+      Array.from(forms).forEach((form) => {
+        form.addEventListener(
+          'submit',
+          (event) => {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+          },
+          false
+        )
+      })
+    })()
+  </script>
+{% endblock %}

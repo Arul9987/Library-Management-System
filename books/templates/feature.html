@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  {% load static %}
+
+  <section class="py-5 bg-light book-section">
+    <div class="container">
+      <!-- Title -->
+      <div class="text-center mb-5">
+        <h2 class="fw-bold display-6">Author’s <span class="text-gradient">Best Books</span></h2>
+        <p class="text-muted col-lg-6 mx-auto">Explore top picks from our collection — from powerful programming guides to timeless classics.</p>
+      </div>
+
+      <div class="row g-4 align-items-center">
+        <!-- Book 1 -->
+        <div class="col-lg-6">
+          <div class="card border-0 shadow-lg rounded-4 overflow-hidden book-card h-100">
+            <div class="row g-0 align-items-center">
+              <!-- Image -->
+              <div class="col-md-5">
+                <img src="{% static 'img/python.jpg' %}" class="img-fluid book-img object-fit-cover" alt="Python Book" />
+              </div>
+
+              <!-- Content -->
+              <div class="col-md-7 p-4">
+                <h5 class="fw-semibold mb-2">Python Programming</h5>
+                <p class="text-primary fw-bold mb-2">By Sundarrajan M</p>
+
+                <p class="text-muted small">A comprehensive guide to Python programming, focusing on practical skills, problem-solving, and real-world applications.</p>
+
+                <div class="d-flex align-items-center mb-3 text-success">
+                  <i class="bi bi-check-circle-fill me-2"></i> Programming
+                </div>
+
+                <a href="#" class="btn btn-dark rounded-pill px-4">Borrow Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Book 2 -->
+        <div class="col-lg-6">
+          <div class="card border-0 shadow-lg rounded-4 overflow-hidden book-card h-100">
+            <div class="row g-0 align-items-center">
+              <!-- Image -->
+              <div class="col-md-5">
+                <img src="{% static 'img/The_Secret_Garden.webp' %}" class="img-fluid book-img object-fit-cover" alt="The Secret Garden Book" />
+              </div>
+
+              <!-- Content -->
+              <div class="col-md-7 p-4">
+                <h5 class="fw-semibold mb-2">The Secret Garden</h5>
+                <p class="text-primary fw-bold mb-2">By Rithvik Singh</p>
+
+                <p class="text-muted small">A magical story of growth, friendship, and the healing power of nature.</p>
+
+                <div class="d-flex align-items-center mb-3 text-success">
+                  <i class="bi bi-check-circle-fill me-2"></i> Fiction
+                </div>
+
+                <a href="#" class="btn btn-dark rounded-pill px-4">Borrow Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="py-5 feature-section">
+    <div class="container text-center">
+      <!-- HEADING -->
+      <h2 class="fw-bold display-6 mb-2">Book’s <span class="text-gradient">Top Features</span></h2>
+      <p class="text-muted mb-5">Your trusted platform for managing and accessing library resources efficiently.</p>
+
+      <!-- FEATURES -->
+      <div class="row g-4">
+        <!-- CARD 1 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card p-4 h-100">
+            <div class="icon mb-3">
+              <i class="bi bi-book"></i>
+            </div>
+            <h5 class="fw-semibold">Quality Resources</h5>
+            <p class="text-muted">Access well-organized and high-quality digital and physical book collections.</p>
+            <a href="#" class="arrow-btn">→</a>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card p-4 h-100">
+            <div class="icon mb-3">
+              <i class="bi bi-lightning-charge"></i>
+            </div>
+            <h5 class="fw-semibold">Fast Access</h5>
+            <p class="text-muted">Quickly search, issue, and return books with an efficient system.</p>
+            <a href="#" class="arrow-btn">→</a>
+          </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card p-4 h-100">
+            <div class="icon mb-3">
+              <i class="bi bi-mortarboard"></i>
+            </div>
+            <h5 class="fw-semibold">Easy Learning</h5>
+            <p class="text-muted">Designed to support students with easy navigation and usability.</p>
+            <a href="#" class="arrow-btn">→</a>
+          </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card p-4 h-100">
+            <div class="icon mb-3">
+              <i class="bi bi-journal-text"></i>
+            </div>
+            <h5 class="fw-semibold">Digital Records</h5>
+            <p class="text-muted">Maintain accurate borrowing history and real-time availability tracking.</p>
+            <a href="#" class="arrow-btn">→</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STYLE -->
+  <style>
+    .feature-section {
+      min-height: 90vh;
+      background: linear-gradient(to right, #f8f9fa, #ffffff);
+    }
+    
+    /* Gradient text */
+    .text-gradient {
+      background: linear-gradient(90deg, #0d6efd, #6f42c1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .book-img {
+      width: 100%;
+      height: 320px; /* same height for both */
+      object-fit: cover; /* keeps image nicely cropped */
+    }
+    /* Card */
+    .feature-card {
+      border-radius: 18px;
+      background: linear-gradient(135deg, #b5c7f7, #a6fcf7);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Icon */
+    .icon {
+      font-size: 35px;
+      color: #0d6efd;
+    }
+    
+    /* Arrow button */
+    .arrow-btn {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #0d6efd;
+      transition: 0.3s;
+    }
+    
+    .arrow-btn:hover {
+      transform: translateX(5px);
+    }
+    
+    /* Mobile */
+    @media (max-width: 768px) {
+      .display-6 {
+        font-size: 1.8rem;
+      }
+    }
+    /* book */
+    .book-section {
+      min-height: 90vh;
+    }
+    
+    .book-card {
+      transition: all 0.4s ease;
+      background: linear-gradient(135deg, #b5c7f7, #a6fcf7);
+      backdrop-filter: blur(10px);
+    }
+    
+    .book-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    }
+    
+    .object-fit-cover {
+      object-fit: cover;
+    }
+    
+    @media (max-width: 768px) {
+      .book-card img {
+        height: 300px;
+      }
+    }
+  </style>
+{% endblock %}

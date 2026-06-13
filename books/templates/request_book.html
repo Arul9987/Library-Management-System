@@ -1,0 +1,109 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block page_content %}
+  <div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+        <div class="card border-0 shadow-lg rounded-5">
+          <!-- Card Header -->
+          <div class="card-header back  text-white rounded-top-5 py-3 text-center">
+            <h4 class="mb-0 fw-bold"><i class="bi bi-book-half me-2"></i>Request New Book</h4>
+          </div>
+
+          <!-- Card Body -->
+          <div class="card-body p-4">
+            <form method="POST">
+              {% csrf_token %}
+
+              <!-- Title -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Book Title</label>
+
+                <div class="input-group rounded-4">
+                  <span class="input-group-text rounded-start-4"><i class="bi bi-book"></i></span>
+
+                  {{ form.title }}
+
+                  <div class="invalid-feedback">{{ form.title.errors }}</div>
+                </div>
+              </div>
+
+              <!-- Author -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Author</label>
+
+                <div class="input-group">
+                  <span class="input-group-text rounded-start-4"><i class="bi bi-person"></i></span>
+
+                  {{ form.author }}
+
+                  <div class="invalid-feedback">{{ form.author.errors }}</div>
+                </div>
+              </div>
+
+              <!-- Edition -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Edition</label>
+
+                <div class="input-group">
+                  <span class="input-group-text rounded-start-4"><i class="bi bi-journal-text"></i></span>
+
+                  {{ form.edition }}
+
+                  <div class="invalid-feedback">{{ form.edition.errors }}</div>
+                </div>
+              </div>
+
+              <!-- Volume -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Volume</label>
+
+                <div class="input-group">
+                  <span class="input-group-text rounded-start-4"><i class="bi bi-collection"></i></span>
+
+                  {{ form.volume }}
+
+                  <div class="invalid-feedback">{{ form.volume.errors }}</div>
+                </div>
+              </div>
+
+              <!-- Buttons -->
+              <div class="d-flex justify-content-center mt-4 gap-3">
+                <button type="submit" class="btn btn-outline-primary px-4 rounded-pill shadow-sm"><i class="bi bi-send me-1"></i> Submit Request</button>
+
+                <a href="{% url 'book_list' %}" class="btn btn-outline-secondary px-4 rounded-pill">Cancel</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .back {
+      background: linear-gradient(90deg, #0d6efd, #6f42c1);
+    }
+    /* smooth hover effect */
+    .card {
+      transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-4px);
+    }
+    
+    /* input styling */
+    input,
+    select {
+      border-radius: 10px !important;
+      padding: 10px;
+    }
+    
+    /* focus effect */
+    input:focus {
+      box-shadow: 0 0 5px rgba(13, 110, 253, 0.25);
+      border-color: #0d6efd;
+    }
+  </style>
+{% endblock %}

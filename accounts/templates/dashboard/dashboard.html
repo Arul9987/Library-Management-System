@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="d-flex">
+    <!-- Sidebar -->
+    <div id="sidebar" class="text-white p-3 sidebar">
+      <!-- User Profile (Toggle Button) -->
+      <div class="d-flex align-items-center ms-2 mb-4">
+        <div class="position-relative d-inline-block">
+          <!-- USER ICON -->
+          <div onclick="toggleSidebar()" class="rounded-circle bg-light d-flex justify-content-center align-items-center user-toggle" style="width:40px;height:40px;">
+            <i class="bi bi-person-fill fs-5 text-dark"></i>
+          </div>
+
+          <!-- Online Dot -->
+          <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0" style="width:10px;height:10px;"></div>
+        </div>
+
+        <div class="ms-3 user-info text-white">
+          <h6 class="mb-0">{{ user.username|capfirst }}</h6>
+          <small>{{ user.role }}</small>
+        </div>
+      </div>
+
+      <hr class="text-white" />
+
+      <ul class="nav flex-column">
+        <!-- USERS -->
+        {% if user.role == 'ADMIN' or user.role == 'LIBRARIAN' %}
+          <li class="nav-item">
+            <a class="nav-link text-white" data-bs-toggle="collapse" href="#usersMenu">
+              <i class="bi bi-people"></i>
+              <span class="menu-text ms-2">Users</span>
+            </a>
+
+            <div class="collapse" id="usersMenu">
+              <ul class="nav flex-column ms-4">
+                <li>
+                  <a class="nav-link text-white" href="{% url 'user_list' %}"><i class="bi bi-people me-2"></i> <span class="menu-text">All Users</span></a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        {% endif %}
+
+        <!-- BOOKS -->
+        <li class="nav-item">
+          <a class="nav-link text-white" data-bs-toggle="collapse" href="#booksMenu">
+            <i class="bi bi-book"></i>
+            <span class="menu-text ms-2">Books</span>
+          </a>
+
+          <div class="collapse" id="booksMenu">
+            <ul class="nav flex-column ms-4">
+              <li>
+                <a class="nav-link text-white" href="{% url 'book_list' %}"><i class="bi bi-book me-2"></i><span class="menu-text">All Books</span></a>
+              </li>
+
+              {% if user.role == 'ADMIN' %}
+                <li>
+                  <a class="nav-link text-white" href="{% url 'add_book' %}"><i class="bi bi-plus-square me-2"></i><span class="menu-text">Add Book</span></a>
+                </li>
+              {% endif %}
+
+              <li>
+                <a class="nav-link text-white" href="{% url 'request_list' %}">
+                  <i class="bi bi-journal-check me-2"></i>
+                  <span class="menu-text">
+                    {% if user.role == 'ADMIN' %}
+                      All Requests
+                    {% else %}
+                      My Requests
+                    {% endif %}
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <!-- BORROW -->
+        <li class="nav-item">
+          <a class="nav-link text-white d-flex align-items-center" data-bs-toggle="collapse" href="#issuedMenu" role="button" aria-expanded="false" aria-controls="issuedMenu">
+            <i class="bi bi-journal-bookmark fs-5"></i>
+            <span class="menu-text ms-2">Borrowed</span>
+          </a>
+
+          <div class="collapse" id="issuedMenu">
+            <ul class="nav flex-column ms-4">
+              <li class="nav-item">
+                <a class="nav-link text-white d-flex align-items-center" href="{% url 'borrow_list' %}">
+                  <i class="bi bi-journal-bookmark-fill me-2"></i>
+                  <span class="menu-text">
+                    {% if user.role == 'STUDENT' %}
+                      My Borrow Books
+                    {% else %}
+                      Borrow Books
+                    {% endif %}
+                  </span>
+                </a>
+              </li>
+
+              {% if user.role == 'ADMIN' or user.role == 'LIBRARIAN' %}
+                <li class="nav-item">
+                  <a class="nav-link text-white d-flex align-items-center" href="{% url 'manual_borrow' %}">
+                    <i class="bi bi-journal-plus me-2"></i>
+                    <span class="menu-text">Manual Borrow</span>
+                  </a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </li>
+
+        <!-- LOGOUT -->
+        <li class="nav-item mt-3">
+          <form method="post" action="{% url 'custom_logout' %}">
+            {% csrf_token %}
+
+            <button type="submit" class="btn btn-outline-danger w-100 d-flex align-items-center justify-content-center gap-2 rounded-pill py-2 logout-btn rounded-5">
+              <i class="bi bi-box-arrow-right fs-5"></i>
+              <span class="menu-text fw-semibold">Logout</span>
+            </button>
+          </form>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="p-4 w-100">
+      {% block page_content %}
+
+      {% endblock %}
+    </div>
+  </div>
+
+  <style>
+    .sidebar .nav-link {
+      transition: all 0.3s ease;
+      border-radius: 8px;
+    }
+    
+    .sidebar .nav-link:hover {
+      background: rgba(36, 193, 241, 0.15); /* softer tint */
+    
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    
+      padding-left: 12px;
+      transform: translateX(6px);
+    
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), /* outer depth */ inset 0 1px 2px rgba(255, 255, 255, 0.3); /* top light reflection */
+    }
+    /* Sidebar */
+    .back {
+      background: linear-gradient(90deg, #24c1f1, #9359f7);
+    }
+    .sidebar {
+      background: #24c1f1;
+      width: 250px;
+      min-height: 100vh;
+      transition: width 0.3s;
+    }
+    
+    /* Collapsed Sidebar */
+    .sidebar.collapsed {
+      width: 80px;
+    }
+    
+    /* Hide text when collapsed */
+    .sidebar.collapsed .menu-text,
+    .sidebar.collapsed .user-info {
+      display: none;
+    }
+    
+    /* Hover effect for logout button */
+    .logout-btn {
+      transition: all 0.3s ease;
+    }
+    .logout-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Responsive: Mobile */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 80px; /* collapse by default */
+      }
+      .sidebar .menu-text,
+      .sidebar .user-info {
+        display: none;
+      }
+    }
+  </style>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar')
+      sidebar.classList.toggle('collapsed')
+    
+      // Collapse all open submenus when sidebar collapses
+      if (sidebar.classList.contains('collapsed')) {
+        const collapses = sidebar.querySelectorAll('.collapse.show')
+        collapses.forEach((c) => new bootstrap.Collapse(c, { toggle: true }))
+      }
+    }
+    
+    // Optional: Close sidebar on small screens by default
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.innerWidth <= 768) {
+        document.getElementById('sidebar').classList.add('collapsed')
+      }
+    })
+  </script>
+{% endblock %}

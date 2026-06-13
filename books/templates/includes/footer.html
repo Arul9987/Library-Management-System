@@ -1,0 +1,99 @@
+<!-- Footer -->
+<footer class="footer text-light pt-5 pb-2 mt-auto">
+  <div class="container">
+    <div class="row text-center text-md-start">
+      <!-- Brand -->
+      <div class="col-md-4 mb-4">
+        <h5 class="fw-bold"><span class="bookify">Bookify</span></h5>
+        <p class="small">Your digital library companion. Discover, manage, and explore books with ease.</p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold">Quick Links</h6>
+        <ul class="list-unstyled">
+          <li>
+            <a href="{% url 'home' %}" class="footer-link">Home</a>
+          </li>
+          <li>
+            <a href="{% url 'features' %}" class="footer-link">Features</a>
+          </li>
+          <li>
+            <a href="{% url 'about' %}" class="footer-link">About</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Auth / Contact -->
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold">Account</h6>
+        <ul class="list-unstyled">
+          {% if user.is_authenticated %}
+            <li>
+              <a href="{% url 'dashboard' %}" class="footer-link">Dashboard</a>
+            </li>
+            <li>
+              <a href="{% url 'book_list' %}" class="footer-link">Books</a>
+            </li>
+            <li>
+              <a href="{% url 'borrow_list' %}" class="footer-link">Borrow Books</a>
+            </li>
+          {% else %}
+            <li>
+              <a href="{% url 'login' %}" class="footer-link">Login</a>
+            </li>
+            <li>
+              <a href="{% url 'register' %}" class="footer-link">Register</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <hr class="border-light opacity-25" />
+
+    <!-- Bottom -->
+    <div class="text-center">
+      © 2026 Bookify * All Rights Reserved
+      <br />
+      <h6><span class="opacity-85">Made with using <span class="django">Django</span></span></h6>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .django {
+    background: linear-gradient(90deg, #03f74c, #74ff02);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+  .bookify {
+    background: linear-gradient(90deg, #0265fa, #6a1ff5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .footer {
+    background: linear-gradient(90deg, #24c1f1, #7c3aed);
+  }
+  
+  /* Links */
+  .footer-link {
+    color: #f1f5f9;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 6px;
+    transition: all 0.3s ease;
+  }
+  
+  .footer-link:hover {
+    color: #fff;
+    transform: translateX(5px);
+  }
+  
+  /* Responsive spacing */
+  .footer h6 {
+    margin-bottom: 10px;
+  }
+</style>

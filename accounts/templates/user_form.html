@@ -1,0 +1,225 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block page_content %}
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card shadow-lg border-0 rounded-5">
+          <!-- Header -->
+          <div class="card-header back  text-white text-center py-3 rounded-top-5">
+            <h4 class="mb-0 fw-semibold">
+              {% if form.instance.pk %}
+                Update User
+              {% else %}
+                Create Account
+              {% endif %}
+            </h4>
+          </div>
+          <div class="card-body p-4">
+            <form method="post">
+              {% csrf_token %}
+
+              <!-- Username -->
+              <div class="mb-3">
+                <label class="form-label">Username <span class="text-danger">*</span></label>
+
+                <div class="input-wrapper">
+                  <i class="bi bi-person"></i>
+                  {{ form.username }}
+                </div>
+
+                <div class="text-danger small">{{ form.username.errors }}</div>
+              </div>
+
+              <!-- Email -->
+              <div class="mb-3">
+                <label class="form-label">Email <span class="text-danger">*</span></label>
+
+                <div class="input-wrapper">
+                  <i class="bi bi-envelope"></i>
+                  {{ form.email }}
+                </div>
+
+                <div class="text-danger small">{{ form.email.errors }}</div>
+              </div>
+
+              <!-- Role -->
+              <div class="mb-3">
+                <label class="form-label">Role <span class="text-danger">*</span></label>
+
+                <div class="input-wrapper">
+                  <i class="bi bi-person-badge"></i>
+                  {{ form.role }}
+                </div>
+
+                <div class="text-danger small">{{ form.role.errors }}</div>
+              </div>
+
+              <!-- Contact -->
+              <div class="mb-3">
+                <label class="form-label">Contact <span class="text-danger">*</span></label>
+
+                <div class="input-wrapper">
+                  <i class="bi bi-telephone"></i>
+                  {{ form.contact }}
+                </div>
+
+                <div class="text-danger small">{{ form.contact.errors }}</div>
+              </div>
+
+              <!-- Address -->
+              <div class="mb-3">
+                <label class="form-label">Address <span class="text-danger">*</span></label>
+
+                <div class="input-wrapper">
+                  <i class="bi bi-geo-alt"></i>
+                  {{ form.address }}
+                </div>
+
+                <div class="text-danger small">{{ form.address.errors }}</div>
+              </div>
+
+              <!-- sataus -->
+              {% if form.instance.pk %}
+                <div class="mb-3">
+                  <label class="form-label fw-semibold">User Status</label>
+                  {{ form.is_active }}
+                  <div class="text-danger small">{{ form.is_active.errors }}</div>
+                </div>
+              {% endif %}
+              
+              {% if not form.instance.pk %}
+                <!-- Password -->
+                <div class="mb-3">
+                  <label class="form-label">Password</label>
+
+                  <div class="input-wrapper password-wrapper rounded-start-4">
+                    <i class="bi bi-eye"></i>
+
+                    {{ form.password1 }}
+
+                    <span class="toggle-password" onclick="togglePassword('id_password1',this)"></span>
+                  </div>
+
+                  <div class="text-danger small">{{ form.password1.errors }}</div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="mb-3">
+                  <label class="form-label">Confirm Password</label>
+
+                  <div class="input-wrapper password-wrapper">
+                    <i class="bi bi-eye"></i>
+                    {{ form.password2 }}
+
+                    <span class="toggle-password" onclick="togglePassword('id_password2',this)"></span>
+                  </div>
+
+                  <div class="text-danger small">{{ form.password2.errors }}</div>
+                </div>
+              {% endif %}
+              <!-- Buttons -->
+              <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'user_list' %}" class="btn btn-outline-secondary rounded-pill px-5">Cancel</a>
+
+                <button type="submit" class="btn btn-outline-primary rounded-pill px-5">
+                  {% if form.instance.pk %}
+                    Update
+                  {% else %}
+                    Register
+                  {% endif %}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .back {
+      background: linear-gradient(90deg, #0d6efd, #6f42c1);
+    }
+    /* label */
+    .form-label {
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    
+    /* input wrapper */
+    .input-wrapper {
+      position: relative;
+    }
+    
+    /* icons */
+    .input-wrapper i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6c757d;
+    }
+    
+    /* inputs */
+    .input-wrapper input,
+    .input-wrapper select,
+    .input-wrapper textarea {
+      width: 100%;
+      padding: 12px 40px;
+      border-radius: 30px;
+      border: 1px solid #ced4da;
+      transition: all 0.3s ease;
+    }
+    
+    /* focus effect */
+    .input-wrapper input:focus,
+    .input-wrapper select:focus,
+    .input-wrapper textarea:focus {
+      border-color: #2b6edc;
+      box-shadow: 0 0 0 3px rgba(43, 110, 220, 0.15);
+      outline: none;
+    }
+    
+    /* password toggle icon */
+    
+    .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #6c757d;
+    }
+    
+    /* textarea */
+    textarea {
+      border-radius: 20px !important;
+    }
+    
+    /* card hover */
+    .card {
+      transition: 0.3s;
+    }
+    
+    .card:hover {
+      transform: translateY(-3px);
+    }
+  </style>
+
+  <script>
+    function togglePassword(fieldId, icon) {
+      const input = document.getElementById(fieldId)
+      const eye = icon.querySelector('i')
+    
+      if (input.type === 'password') {
+        input.type = 'text'
+        eye.classList.replace('bi-eye', 'bi-eye-slash')
+      } else {
+        input.type = 'password'
+        eye.classList.replace('bi-eye-slash', 'bi-eye')
+      }
+    }
+  </script>
+{% endblock %}
+

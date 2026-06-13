@@ -1,0 +1,119 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block page_content %}
+  <div class="container py-4">
+    <div class="card border-0 shadow-lg rounded-5">
+      <!-- Header -->
+      <div class="card-header back text-white rounded-top-5 py-3 px-4">
+        <h4 class="mb-0"><i class="bi bi-book me-2"></i>Book Details</h4>
+      </div>
+
+      <!-- Body -->
+      <div class="card-body p-4">
+        <div class="row align-items-center">
+          <!-- Book Image -->
+          <div class="col-md-4 text-center mb-4 mb-md-0">
+            {% if book.img_url %}
+              <img src="{{ book.img_url.url }}" class="img-fluid rounded-4 shadow-sm mb-2" style="max-height:320px; object-fit:cover;" />
+            {% else %}
+              <div class="bg-light rounded-4 p-5 text-muted">
+                <i class="bi bi-image fs-1"></i>
+                <p class="mt-2 mb-0">No Image</p>
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Book Info -->
+          <div class="col-md-8 pt-2">
+            <h3 class="fw-bold mb-4">{{ book.title }}</h3>
+
+            <div class="row gy-3">
+              <div class="col-md-6">
+                <div class="d-flex">
+                  <div class="fw-bold text-primary me-2" style="width:150px;">Author :</div>
+                  <div class="fw-semibold">{{ book.author }}</div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="d-flex">
+                  <div class="fw-bold text-primary me-2" style="width:150px;">Category :</div>
+                  <div class="fw-semibold">{{ book.category.name }}</div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="d-flex">
+                  <div class="fw-bold text-primary me-2" style="width:150px;">Edition :</div>
+                  <div class="fw-semibold">{{ book.edition }}</div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="d-flex">
+                  <div class="fw-bold text-primary me-2" style="width:150px;">Volume :</div>
+                  <div class="fw-semibold">{{ book.volume }}</div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="d-flex">
+                  <div class="fw-bold text-primary me-2" style="width:150px;">Total Copies :</div>
+                  <div class="fw-semibold">{{ book.total_copies }}</div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                  <div class="fw-bold text-primary me-2" style="width:150px;">Availability :</div>
+
+                  {% if book.available_copies > 0 %}
+                    <span class="badge bg-success px-3 py-2 rounded-5">{{ book.available_copies }} Available</span>
+                  {% else %}
+                    <span class="badge bg-danger px-3 py-2">Out of Stock</span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="mt-4 d-flex flex-wrap justify-content-center gap-3">
+              {% if user.role == 'STUDENT' %}
+                {% if book.available_copies > 0 %}
+                  <a href="{% url 'borrow_book' book.id %}" class="btn btn-outline-primary rounded-pill px-4">
+                    <i class="bi bi-journal-arrow-down me-1"></i>
+                    Request
+                  </a>
+                {% else %}
+                  <button class="btn btn-secondary rounded-pill px-4" disabled>Out of Stock</button>
+                {% endif %}
+              {% endif %}
+              {% if user.role == 'ADMIN' %}
+                <a href="{% url 'book_update' book.pk %}" class="btn btn-outline-info rounded-pill px-4">
+                  <i class="bi bi-pencil-square me-1"></i>
+                  Update
+                </a>
+
+                <a href="{% url 'book_delete' book.id %}" class="btn btn-outline-danger rounded-pill px-4">
+                  <i class="bi bi-trash me-1"></i>
+                  Delete
+                </a>
+              {% endif %}
+
+              <a href="{% url 'book_list' %}" class="btn btn-outline-secondary rounded-pill px-4">
+                <i class="bi bi-arrow-left me-1"></i>
+                Back
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .back {
+      background: linear-gradient(90deg, #0d6efd, #6f42c1);
+    }
+  </style>
+{% endblock %}

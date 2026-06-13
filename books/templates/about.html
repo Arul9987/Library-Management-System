@@ -1,0 +1,350 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <section class="section py-5 about">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <!-- LEFT -->
+        <div class="col-lg-6">
+          {% comment %} <span class="badge bg-primary-subtle text-primary px-3 py-2 mb-3">About Us</span> {% endcomment %}
+          <h2 class="fw-bold display-5 mb-3"><span class="text-gradient">Bokify</span> Is The <span class="text-gradient">Best Choice</span> For You</h2>
+          <p class="text-dark">Discover a world of knowledge, imagination, and inspiration through our curated collection of books.</p>
+
+          <div class="img-box mt-4">
+            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794" alt="" />
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="col-lg-6">
+          <div class="img-box mb-4">
+            <img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4" alt="" />
+          </div>
+
+          <p class="text-dark">We are passionate about literature and committed to sharing the magic of storytelling. Our goal is to inspire, educate, and empower readers worldwide.</p>
+
+          <div class="video-btn mt-3">
+            <span><i class="bi bi-play-fill"></i></span>
+            <p class="mb-0 fw-semibold">Watch Video</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="section py-5 bg-light mission">
+    <div class="container text-center">
+      <h3 class="fw-bold mb-2">Our Mission</h3>
+      <p class="text-dark mb-5">Fueling curiosity and lifelong learning through a carefully curated collection.</p>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card modern-card h-100 p-4">
+            <div class="icon mb-3">📖</div>
+            <h5>Smart Library Access</h5>
+            <p class="text-dark">Easily browse, search, and access a wide range of books anytime, anywhere.</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card modern-card h-100 p-4">
+            <div class="icon mb-3">🔐</div>
+            <h5>Secure Management</h5>
+            <p class="text-dark">Efficiently manage users, book records, and borrowing activities with secure authentication.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card modern-card h-100 p-4">
+            <div class="icon mb-3">📊</div>
+            <h5>Digital Tracking</h5>
+            <p class="text-dark">Track issued books, returns, and availability in real-time with an organized dashboard.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  {% load static %}
+
+  <section class="section py-5 partners">
+    <div class="container text-center">
+      <h4 class="fw-bold">Our Publishing Partners</h4>
+      <p class="text-dark mb-4">Trusted book publishers worldwide</p>
+
+      <div class="row justify-content-center align-items-center g-4">
+        <div class="col-4 col-md-2">
+          <img src="{% static 'partners/random.svg' %}" class="img-fluid partner-logo" alt="Penguin Random House" />
+        </div>
+
+        <div class="col-4 col-md-2">
+          <img src="{% static 'partners/coper.svg' %}" class="img-fluid partner-logo" alt="HarperCollins" />
+        </div>
+
+        <div class="col-4 col-md-2">
+          <img src="{% static 'partners/Hachett.svg' %}" class="img-fluid partner-logo" alt="Simon & Schuster" />
+        </div>
+
+        <div class="col-4 col-md-2">
+          <img src="{% static 'partners/macmillan.svg' %}" class="img-fluid partner-logo" alt="Macmillan" />
+        </div>
+
+        <div class="col-4 col-md-2">
+          <img src="{% static 'partners/Bloomsbury.svg' %}" class="img-fluid partner-logo" alt="Hachette" />
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- STYLE -->
+  <style>
+    .about {
+      min-height: 90vh;
+    }
+    .mission {
+      min-height: 80vh;
+    }
+    .partners {
+      min-height: 20vh;
+    }
+    .text-gradient {
+      background: linear-gradient(90deg, #0d6efd, #6f42c1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .img-box {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+    
+    .img-box:hover img {
+      transform: scale(1.05);
+    }
+    
+    .video-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+    
+    .video-btn span {
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(135deg, #0d6efd, #6f42c1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 20px;
+    }
+    
+    .modern-card {
+      border: none;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #b5c7f7, #a6fcf7);
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+    
+    .modern-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .icon {
+      font-size: 30px;
+    }
+    
+    .partner-logo {
+      max-height: 40px;
+      opacity: 0.7;
+      transition: 0.3s;
+    }
+    
+    .partner-logo:hover {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  </style>
+  
+{% endblock %}
+
+{% comment %} {% extends 'base.html' %}
+
+{% block content %}
+  <!-- HERO SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <!-- LEFT CONTENT -->
+        <div class="col-lg-6">
+          <p class="text-primary">About us</p>
+          <h2 class="main-title">Bokify Is Best Choice For You</h2>
+
+          <div class="img-box mt-4">
+            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794" alt="" />
+          </div>
+        </div>
+
+        <!-- RIGHT CONTENT -->
+        <div class="col-lg-6">
+          <div class="img-box mb-4">
+            <img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4" alt="" />
+          </div>
+
+          <p class="sub-text">Welcome! We're passionate about literature and committed to sharing the magic of storytelling. Our goal is to inspire and educate readers.</p>
+
+          <div class="video-btn">
+            <span>▶</span>
+            <p class="mb-0">Watch Video</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="section text-center">
+    <div class="container">
+      <h4 class="fw-bold">Our Mission</h4>
+      <p class="sub-text">Fueling curiosity and lifelong learning through a carefully curated collection of books.</p>
+
+      <div class="row mt-4 g-4">
+        <div class="col-md-4">
+          <div class="card-box">
+            <h6>Best Bookstore</h6>
+            <p class="sub-text">Discover books that ignite imagination and creativity.</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card-box">
+            <h6>Trusted Seller</h6>
+            <p class="sub-text">Quality books with confidence and reliability.</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card-box">
+            <h6>Expand Store</h6>
+            <p class="sub-text">Explore our growing collection across genres.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="section text-center">
+    <div class="container">
+      <h5 class="fw-bold">Our partners</h5>
+      <p class="sub-text">Trusted collaborators who share our passion</p>
+
+      <div class="row justify-content-center align-items-center partners mt-4 g-4">
+        <div class="col-4 col-md-2">
+          <img src="https://dummyimage.com/100x30/ccc/000&text=Sermai" class="img-fluid" />
+        </div>
+        <div class="col-4 col-md-2">
+          <img src="https://dummyimage.com/100x30/ccc/000&text=Ovalism" class="img-fluid" />
+        </div>
+        <div class="col-4 col-md-2">
+          <img src="https://dummyimage.com/100x30/ccc/000&text=Orbital" class="img-fluid" />
+        </div>
+        <div class="col-4 col-md-2">
+          <img src="https://dummyimage.com/100x30/ccc/000&text=Webflow" class="img-fluid" />
+        </div>
+        <div class="col-4 col-md-2">
+          <img src="https://dummyimage.com/100x30/ccc/000&text=Cirfire" class="img-fluid" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    body {
+      background: #f7f7f7;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    
+    .section {
+      padding: 60px 0;
+    }
+    
+    .main-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    
+    .sub-text {
+      color: #777;
+      font-size: 14px;
+    }
+    
+    .img-box {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .video-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .video-btn span {
+      width: 40px;
+      height: 40px;
+      background: #0d6efd;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    
+    .card-box {
+      background: #eef1f5;
+      padding: 25px;
+      border-radius: 12px;
+      transition: 0.3s;
+      height: 100%;
+    }
+    
+    .card-box:hover {
+      transform: translateY(-5px);
+    }
+    
+    .card-box h6 {
+      font-weight: 600;
+    }
+    
+    .partners img {
+      opacity: 0.6;
+      transition: 0.3s;
+      max-height: 30px;
+    }
+    
+    .partners img:hover {
+      opacity: 1;
+    }
+  </style>
+{% endblock %} {% endcomment %}

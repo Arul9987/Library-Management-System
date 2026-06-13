@@ -1,0 +1,120 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block page_content %}
+  <div class="container-fluid py-3">
+    <!-- Header -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-3">
+      <h5 class="fw-bold text-primary mb-0"><i class="bi bi-people me-2"></i> <span class="text-gradient">User Management</span></h5>
+
+      {% if request.user.role == 'ADMIN' or request.user.role == 'LIBRARIAN' %}
+        <a href="{% url 'user_create' %}" class="btn btn-outline-primary rounded-pill px-3 shadow-sm"><i class="bi bi-person-plus me-1"></i> Add User</a>
+      {% endif %}
+    </div>
+
+    <!-- Card -->
+    <div class="card border-0 shadow rounded-4">
+      <div class="card-body p-2 p-md-4">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle table-sm">
+            <!-- Table Head -->
+            <thead class="table-primary text-center">
+              <tr>
+                <th>ID</th>
+                <th class="text-start">Username</th>
+                <th class="text-start d-none d-md-table-cell">Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th class="d-none d-lg-table-cell">Contact</th>
+                <th class="d-none d-lg-table-cell">Address</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for user in users %}
+                <tr>
+                  <td class="text-center fw-semibold">{{ user.id }}</td>
+
+                  <td class="fw-semibold">
+                    <i class="bi bi-person-circle me-1 text-secondary"></i>
+                    {{ user.username }}
+                  </td>
+
+                  <td class="d-none d-md-table-cell">{{ user.email }}</td>
+
+                  <!-- Role -->
+                  <td class="text-center">
+                    {% if user.role == 'ADMIN' %}
+                      <span class="badge bg-danger rounded-pill">Admin</span>
+                    {% elif user.role == 'LIBRARIAN' %}
+                      <span class="badge bg-warning text-dark rounded-pill">Librarian</span>
+                    {% else %}
+                      <span class="badge bg-info text-dark rounded-pill">Student</span>
+                    {% endif %}
+                  </td>
+
+                  <!-- Status -->
+                  <td class="text-center">
+                    {% if user.is_active %}
+                      <span class="badge bg-success rounded-pill">Active</span>
+                    {% else %}
+                      <span class="badge bg-danger rounded-pill">Inactive</span>
+                    {% endif %}
+                  </td>
+
+                  <td class="d-none d-lg-table-cell">{{ user.contact|default:'-' }}</td>
+
+                  <td class="text-truncate d-none d-lg-table-cell" style="max-width:200px;">{{ user.address|default:'-' }}</td>
+
+                  <!-- Actions -->
+                  <td class="text-center">
+                    <a href="{% url 'user_detail' user.pk %}" class="btn btn-sm btn-outline-info rounded-pill px-2"><i class="bi bi-eye"></i>View</a>
+                  </td>
+                </tr>
+              {% empty %}
+                <tr>
+                  <td colspan="8" class="text-center py-4 text-muted">
+                    <i class="bi bi-inbox fs-3 d-block mb-2"></i>
+                    No users available
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .text-gradient {
+      background: linear-gradient(90deg, #0d6efd, #6f42c1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .table-hover tbody tr:hover {
+      background: #f8f9fa;
+      transition: 0.2s;
+    }
+    
+    .card {
+      transition: 0.3s;
+    }
+    
+    .card:hover {
+      transform: translateY(-3px);
+    }
+    
+    /* Mobile improvements */
+    @media (max-width: 768px) {
+      .table {
+        font-size: 13px;
+      }
+    
+      .btn {
+        padding: 4px 10px;
+        font-size: 12px;
+      }
+    }
+  </style>
+{% endblock %}

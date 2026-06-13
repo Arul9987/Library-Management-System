@@ -1,0 +1,140 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block page_content %}
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+        <div class="card border-0 shadow-lg rounded-5">
+          <!-- Header -->
+          <div class="card-header back  text-white text-center rounded-top-5 py-3">
+            <h3 class="mb-0 fw-bold">Add New Book</h3>
+          </div>
+
+          <div class="card-body p-4">
+            <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+
+              <!-- Title -->
+              <div class="row mb-3 align-items-center">
+                <div class="col-md-4">
+                  <label class="form-label fw-semibold mb-0">Title </label>
+                </div>
+                <div class="col-md-8">{{ form.title }}</div>
+              </div>
+
+              <!-- Author -->
+              <div class="row mb-3 align-items-center">
+                <div class="col-md-4">
+                  <label class="form-label fw-semibold mb-0">Author </label>
+                </div>
+                <div class="col-md-8">{{ form.author }}</div>
+              </div>
+
+              <!-- Category -->
+              <div class="row mb-3 align-items-center">
+                <div class="col-md-4">
+                  <label class="form-label fw-semibold mb-0">Category</label>
+                </div>
+                <div class="col-md-8">{{ form.category }}</div>
+              </div>
+
+              <!-- Edition -->
+              <div class="row mb-3 align-items-center">
+                <div class="col-md-4">
+                  <label class="form-label fw-semibold mb-0">Edition</label>
+                </div>
+                <div class="col-md-8">{{ form.edition }}</div>
+              </div>
+
+              <!-- Volume -->
+              <div class="row mb-3 align-items-center">
+                <div class="col-md-4">
+                  <label class="form-label fw-semibold mb-0">Volume</label>
+                </div>
+                <div class="col-md-8">{{ form.volume }}</div>
+              </div>
+
+              <!-- Total Copies -->
+              <div class="row mb-3 align-items-center">
+                <div class="col-md-4">
+                  <label class="form-label fw-semibold mb-0">Total Copies</label>
+                </div>
+                <div class="col-md-8">{{ form.total_copies }}</div>
+              </div>
+
+              <!-- Available Copies -->
+              <div class="row mb-3 align-items-center">
+                <div class="col-md-4">
+                  <label class="form-label fw-semibold mb-0">Available Copies</label>
+                </div>
+                <div class="col-md-8">{{ form.available_copies }}</div>
+              </div>
+
+              <!-- Image Upload -->
+              <div class="row mb-3 align-items-center">
+                <div class="col-md-4">
+                  <label class="form-label fw-semibold mb-0">Book Cover</label>
+                </div>
+                <div class="col-md-8">{{ form.img_url }}</div>
+              </div>
+
+              <!-- Buttons -->
+              <div class="text-center mt-4">
+                <button type="submit" class="btn btn-outline-primary px-5 py-2 rounded-pill shadow-sm">Save Book</button>
+
+                <a href="{% url 'book_list' %}" class="btn btn-outline-secondary px-5 py-2 rounded-pill ms-2">Cancel</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .back {
+      background: linear-gradient(90deg, #0d6efd, #6f42c1);
+    }
+    /* Apply to all form inputs */
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px !important;
+    
+      /* same border all sides */
+      border: 1px solid #ced4da !important;
+    
+      /* same background */
+      background-color: #ffffff;
+    
+      /* remove default browser styles */
+      outline: none;
+      box-shadow: none;
+    }
+    
+    /* focus style */
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border: 1px solid #0d6efd !important;
+      box-shadow: 0 0 5px rgba(13, 110, 253, 0.25);
+    }
+    
+    /* file input styling */
+    input[type='file'] {
+      padding: 6px;
+    }
+    
+    /* card hover */
+    .card {
+      transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-3px);
+    }
+  </style>
+{% endblock %}
+

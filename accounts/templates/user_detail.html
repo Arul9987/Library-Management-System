@@ -1,0 +1,109 @@
+{% extends 'dashboard/dashboard.html' %}
+{% block page_content %}
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+        <div class="card border-0 shadow-lg rounded-5 overflow-hidden">
+          <!-- Header -->
+          <div class="back text-white text-center py-4">
+            <div class="mb-2">
+              <div class="rounded-circle bg-white text-primary fw-bold d-inline-flex align-items-center justify-content-center" style="width:70px;height:70px;font-size:28px;">{{ user.username|first|upper }}</div>
+            </div>
+            <h4 class="mb-0 fw-semibold">{{ user.username|title }}</h4>
+            <small>User Profile</small>
+          </div>
+
+          <!-- Body -->
+          <div class="card-body p-4">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="border rounded-4 p-3 bg-light d-flex justify-content-between">
+                  <small class="fw-bold text-primary me-2">User ID</small>
+                  <div class="fw-semibold">{{ user.id }}</div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="border rounded-4 p-3 bg-light d-flex justify-content-between">
+                  <small class="fw-bold text-primary me-2">Email</small>
+                  <div class="fw-semibold">{{ user.email }}</div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="border rounded-4 p-3 bg-light d-flex justify-content-between">
+                  <small class="fw-bold text-primary me-2">Role</small>
+                  <div>
+                    {% if user.role == 'ADMIN' %}
+                      <span class="badge bg-danger px-3 py-2 rounded-5">Admin</span>
+                    {% elif user.role == 'LIBRARIAN' %}
+                      <span class="badge bg-warning text-dark px-3 py-2 rounded-5">Librarian</span>
+                    {% else %}
+                      <span class="badge bg-info text-dark px-3 py-2 rounded-5">Student</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="border rounded-4 p-3 bg-light d-flex justify-content-between">
+                  <small class="fw-bold text-primary me-2">Sataus</small>
+                  <div>
+                    {% if user.is_active %}
+                      <span class="badge bg-info text-dark rounded-pill px-3 py-2">Active</span>
+                    {% else %}
+                      <span class="badge bg-danger rounded-pill px-3 py-2">Inactive</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="border rounded-4 p-3 bg-light d-flex justify-content-between">
+                  <small class="fw-bold text-primary me-2">Contact</small>
+                  <div class="fw-semibold">{{ user.contact|default:'-' }}</div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="border rounded-4 p-3 bg-light">
+                  <small class="fw-bold text-primary me-2">Address</small>
+                  <div class="fw-semibold">{{ user.address|default:'-' }}</div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="border rounded-4 p-3 bg-light d-flex justify-content-between">
+                  <small class="fw-bold text-primary me-2">Date Joined</small>
+                  <div class="fw-semibold">{{ user.date_joined }}</div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="border rounded-4 p-3 bg-light d-flex justify-content-between">
+                  <small class="fw-bold text-primary me-2">Last Login</small>
+                  <div class="fw-semibold">{{ user.last_login|default:'Never' }}</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex justify-content-between mt-4">
+              <a href="{% url 'user_list' %}" class="btn btn-outline-secondary px-4 rounded-5">← Back</a>
+
+              <div class="d-flex gap-2">
+                <a href="{% url 'user_update' user.pk %}" class="btn btn-outline-success px-4 rounded-5">Edit</a>
+
+                <a href="{% url 'user_delete' user.pk %}" class="btn btn-outline-danger px-4 rounded-5">Delete</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    .back {
+      background: linear-gradient(90deg, #0d6efd, #6f42c1);
+    }
+  </style>
+{% endblock %}
